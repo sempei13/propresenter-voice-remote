@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import argparse
 import io
+import os
 import queue
 import re
 import subprocess
@@ -191,8 +192,9 @@ def main() -> None:
     except httpx.HTTPError:
         sys.exit("Speech server isn't running: start the whisper.cpp server on localhost:2022 (see README).")
 
+    quit_key = "Cmd+Q" if os.environ.get("VOICE_REMOTE_APP") else "Ctrl+C"
     print('Listening. Say "next slide", "go back", "first slide", "last slide", '
-          'or "next presentation". Ctrl+C to quit.\n')
+          f'or "next presentation". {quit_key} to quit.\n')
     source = file_frames(args.file) if args.file else mic_frames()
     try:
         for audio in phrases(source):

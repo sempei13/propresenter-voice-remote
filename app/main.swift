@@ -60,6 +60,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         p.arguments = ["run", "--quiet", script]
         var env = ProcessInfo.processInfo.environment
         env["PYTHONUNBUFFERED"] = "1"  // show each line as soon as it's printed
+        env["VOICE_REMOTE_APP"] = "1"  // so the script says Cmd+Q, not Ctrl+C, to quit
         env["PATH"] = "/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"  // lsof lives in /usr/sbin
         p.environment = env
 
